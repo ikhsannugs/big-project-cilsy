@@ -1,0 +1,46 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: pesbuk
+  namespace: stagging
+  labels:
+    app: pesbuk
+spec:
+  selector:
+    matchLabels:
+      app: pesbuk
+  replicas: 3 
+  template: 
+    metadata:
+      labels:
+        app: pesbuk
+    spec:
+      containers:
+      - name: pesbuk
+        image: ikhsannugs/big-project:pesbuk_staging_0
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests: 
+            memory: "256Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 80
+        env:
+        - name: DB_HOST
+          value: "apps-stagging.citrm16v9p2y.ap-southeast-1.rds.amazonaws.com"
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: username
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: password
+        - name: DB_NAME
+          value: "pesbukdb"
+
+

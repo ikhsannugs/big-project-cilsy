@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: s-ingress
+  namespace: stagging
+  annotations:
+    ## Untuk menaikan batas upload file
+    nginx.org/client-max-body-size: "10m"
+    #nginx.ingress.kubernetes.io/rewrite-target: /$2
+    ## Memaksa jalan di https
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  rules:
+  - host: stagging-web.ikhsannugs.xyz
+    http:
+      paths:
+      - 
+        backend:
+          serviceName: landing-page-stagging
+          servicePort: 80
+  - host: stagging-pesbuk.ikhsannugs.xyz
+    http:
+      paths:
+      -
+        backend:
+          serviceName: pesbuk-stagging
+          servicePort: 8300
+  - host: stagging-blog.ikhsannugs.xyz
+    http:
+      paths:
+      -
+        backend:
+          serviceName: wordpress-stagging
+          servicePort: 8500

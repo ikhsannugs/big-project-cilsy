@@ -1,0 +1,7 @@
+[client]
+18.136.104.220
+
+[client:vars]
+ansible_connection=ssh 
+ansible_ssh_private_key_file=/home/vagrant/.ssh/ikhsan.pem
+ansible_ssh_user=ubuntu

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: landing-page-production
+  namespace: production
+  labels:
+    app: landing-page
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: landing-page
+  type: NodePort
+

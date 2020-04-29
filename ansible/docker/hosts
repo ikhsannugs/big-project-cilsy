@@ -1,0 +1,14 @@
+[client]
+18.136.210.71
+52.77.235.209
+18.136.124.43
+3.1.217.250
+54.179.137.141
+13.229.97.222
+54.251.189.147
+18.136.195.213
+
+[client:vars]
+ansible_connection=ssh 
+ansible_ssh_private_key_file=/home/vagrant/.ssh/id_rsa
+ansible_ssh_user=admin

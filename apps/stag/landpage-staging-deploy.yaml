@@ -1,0 +1,23 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: landing-page
+  namespace: stagging
+  labels:
+        app: landing-page
+spec:
+  selector:
+    matchLabels:
+      app: landing-page
+  replicas: 2 
+  template: 
+    metadata:
+      labels:
+        app: landing-page
+    spec:
+      containers:
+      - name: landing-page
+        image: ikhsannugs/big-project:landpage_staging_0
+        ports:
+        - containerPort: 80
+

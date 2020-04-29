@@ -1,0 +1,47 @@
+---
+
+- name: Install Jenkins
+  hosts: client
+  become: yes
+  tasks:
+    
+    - name: Install Java
+      command: apt install -y openjdk-8-jdk
+
+    - name: Install key for the Jenkins apt repository
+      apt_key:
+        url: "https://pkg.jenkins.io/debian/jenkins-ci.org.key"
+        state: present
+
+    - name: Install access to the Jenkins apt repository
+      apt_repository:
+        repo: deb http://pkg.jenkins.io/debian-stable binary/
+        state: present
+        filename: 'jenkins-stable'
+
+    - name: APT Update for the Jenkins repository
+      command: apt update
+
+    - name: Install Jenkins package
+      apt:
+        name: jenkins
+        state: present
+
+    - name: Start Jenkins service and enable on boot
+      service:
+        name: jenkins
+        state: started
+        enabled: yes
+    
+    - name: Add jenkins to group docker
+      shell: usermod -aG docker jenkins
+
+    - name: init password jenkin
+      shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+      changed_when: false
+      register: result
+
+    - name: print init password jenkins
+      debug:
+        var: result.stdout
+    
